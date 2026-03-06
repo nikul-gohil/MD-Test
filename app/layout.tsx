@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Plus_Jakarta_Sans, DM_Sans } from 'next/font/google'
 import { Toaster } from 'react-hot-toast'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import { client } from '@/lib/apolloClient'
 import { GET_NAV_CATEGORIES } from '@/lib/queries/categories'
 import Header from '@/components/layout/Header'
@@ -77,6 +78,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Header navCategories={navCategories} />
         {children}
         <Footer />
+        <SpeedInsights />
       </body>
     </html>
   )
