@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import { Heart } from 'lucide-react'
 import { useWishlistStore } from '@/store/wishlistStore'
 import toast from 'react-hot-toast'
@@ -13,7 +14,9 @@ interface WishlistButtonProps {
 export default function WishlistButton({ sku, name = '', size = 16 }: WishlistButtonProps) {
   const toggle = useWishlistStore((s) => s.toggle)
   const has = useWishlistStore((s) => s.has)
-  const isWishlisted = has(sku)
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => { setMounted(true) }, [])
+  const isWishlisted = mounted && has(sku)
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault()

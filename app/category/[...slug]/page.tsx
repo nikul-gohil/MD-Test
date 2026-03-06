@@ -4,6 +4,25 @@ import { magentoFetch } from '@/lib/magentoFetch'
 import { GET_CATEGORY_PRODUCTS_QUERY, GET_CATEGORY_BY_URL_PATH_QUERY } from '@/lib/queries/products'
 import type { ProductListResult } from '@/lib/types'
 import CategoryPageClient from './CategoryPageClient'
+import { ProductGridSkeleton } from '@/components/ui/Skeleton'
+
+function CategorySkeleton() {
+  return (
+    <div className="min-h-screen" style={{ backgroundColor: '#F5F7FA' }}>
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="flex gap-8">
+          <div className="hidden lg:block w-72 shrink-0">
+            <div className="bg-white rounded-xl p-5 shadow-sm h-96 animate-pulse" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="h-5 w-48 bg-gray-200 rounded animate-pulse mb-6" />
+            <ProductGridSkeleton count={12} />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export const revalidate = 300
 
@@ -115,7 +134,7 @@ export default async function CategoryPage({ params, searchParams }: PageProps) 
   ]
 
   return (
-    <Suspense>
+    <Suspense fallback={<CategorySkeleton />}>
       <CategoryPageClient
         categoryName={categoryName || urlPath}
         categoryMeta={categoryMeta}

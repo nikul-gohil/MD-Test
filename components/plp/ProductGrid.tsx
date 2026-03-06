@@ -13,7 +13,7 @@ interface ProductGridProps {
   view?: 'grid' | 'list'
 }
 
-function PLPProductCard({ product }: { product: ProductListItem }) {
+function PLPProductCard({ product, priority = false }: { product: ProductListItem; priority?: boolean }) {
   const addItem = useCartStore((s) => s.addItem)
   const finalPrice = product.price_range.minimum_price.final_price
   const regularPrice = product.price_range.minimum_price.regular_price
@@ -38,6 +38,7 @@ function PLPProductCard({ product }: { product: ProductListItem }) {
               src={product.small_image.url}
               alt={product.small_image.label || product.name}
               fill
+              priority={priority}
               className="object-contain p-3 group-hover:scale-105 transition-transform duration-300"
               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
             />
@@ -133,7 +134,7 @@ export default function ProductGrid({ products, view = 'grid' }: ProductGridProp
   }
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-      {products.map((p) => <PLPProductCard key={p.id} product={p} />)}
+      {products.map((p, i) => <PLPProductCard key={p.id} product={p} priority={i < 4} />)}
     </div>
   )
 }
