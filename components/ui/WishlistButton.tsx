@@ -10,7 +10,7 @@ interface WishlistButtonProps {
   size?: number
 }
 
-export default function WishlistButton({ sku, name, size = 16 }: WishlistButtonProps) {
+export default function WishlistButton({ sku, name = '', size = 16 }: WishlistButtonProps) {
   const toggle = useWishlistStore((s) => s.toggle)
   const has = useWishlistStore((s) => s.has)
   const isWishlisted = has(sku)
@@ -18,7 +18,7 @@ export default function WishlistButton({ sku, name, size = 16 }: WishlistButtonP
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
-    toggle(sku)
+    toggle(sku, name)
     toast(isWishlisted ? 'Removed from wishlist' : 'Added to wishlist', {
       icon: isWishlisted ? '💔' : '❤️',
       style: { fontSize: '13px' },

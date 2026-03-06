@@ -1,9 +1,14 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
+export interface WishlistItem {
+  sku: string
+  name: string
+}
+
 interface WishlistStore {
-  skus: string[]
-  toggle: (sku: string) => void
+  items: WishlistItem[]
+  toggle: (sku: string, name?: string) => void
   has: (sku: string) => boolean
   clear: () => void
 }
@@ -11,17 +16,18 @@ interface WishlistStore {
 export const useWishlistStore = create<WishlistStore>()(
   persist(
     (set, get) => ({
-      skus: [],
-      toggle: (sku) => {
-        const current = get().skus
+      items: [],
+      toggle: (sku, name = '') => {
+        const current = get().items
+        const exists = current.some((i) => i.sku === sku)
         set({
-          skus: current.includes(sku)
-            ? current.filter((s) => s !== sku)
-            : [...current, sku],
+          items: exists
+            ? current.filter((i) => i.sku !== sku)
+            : [...current, { sku, name }],
         })
       },
-      has: (sku) => get().skus.includes(sku),
-      clear: () => set({ skus: [] }),
+      has: (sku) => get().items.some((i) => i.sku === sku),
+      clear: () => set({ items: [] }),
     }),
     { name: 'medguard-wishlist' }
   )

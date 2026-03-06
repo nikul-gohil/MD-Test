@@ -5,10 +5,9 @@ import HeroBanner from '@/components/home/HeroBanner'
 import TrustedBrands from '@/components/home/TrustedBrands'
 import TopCategories from '@/components/home/TopCategories'
 import PromoBanners from '@/components/home/PromoBanners'
-import FeaturedProducts from '@/components/home/FeaturedProducts'
 import TopBrands from '@/components/home/TopBrands'
-import Testimonial from '@/components/home/Testimonial'
 import TrustBar from '@/components/home/TrustBar'
+import BelowFoldSections from '@/components/home/BelowFoldSections'
 import type { CategoryItem, FeaturedProduct } from '@/lib/types'
 
 export const revalidate = 60
@@ -86,9 +85,8 @@ export default async function HomePage() {
       <TrustedBrands />
       <TopCategories categories={displayCategories} />
       <PromoBanners />
-      <FeaturedProducts products={products} />
+      <BelowFoldSections products={products} />
       <TopBrands />
-      <Testimonial />
       <TrustBar />
     </main>
   )

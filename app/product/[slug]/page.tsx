@@ -9,6 +9,7 @@ import ProductInfo from '@/components/pdp/ProductInfo'
 import ProductTabs from '@/components/pdp/ProductTabs'
 import Breadcrumbs from '@/components/ui/Breadcrumbs'
 import RelatedProducts from '@/components/pdp/RelatedProducts'
+import ProductSchema from '@/components/seo/ProductSchema'
 
 export const revalidate = 60
 
@@ -16,11 +17,11 @@ interface PageProps {
   params: Promise<{ slug: string }>
 }
 
-async function fetchProduct(urlKey: string): Promise<ProductDetail | null> {
+async function fetchProduct(sku: string): Promise<ProductDetail | null> {
   try {
     const data = await magentoFetch<{ products: { items: ProductDetail[] } }>(
       GET_PRODUCT_DETAIL_QUERY,
-      { urlKey }
+      { sku }
     )
     return data?.products?.items?.[0] ?? null
   } catch {
@@ -49,6 +50,8 @@ export default async function ProductPage({ params }: PageProps) {
 
   if (!product) notFound()
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.medguard.ie'
+
   const breadcrumbs = [
     { label: 'Home', href: '/' },
     ...(product.categories?.[0]
@@ -59,6 +62,7 @@ export default async function ProductPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#F5F7FA' }}>
+      <ProductSchema product={product} url={`${siteUrl}/product/${slug}`} />
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Breadcrumbs */}
         <div className="mb-6">

@@ -17,7 +17,7 @@ export default function TopBrands() {
       <div className="max-w-7xl mx-auto px-4">
         <h2
           className="text-2xl font-extrabold text-center mb-8"
-          style={{ color: '#1B2B6B', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+          style={{ color: '#1B2B6B', fontFamily: 'var(--font-jakarta), sans-serif' }}
         >
           Top Brands
         </h2>
@@ -29,7 +29,7 @@ export default function TopBrands() {
             >
               <span
                 className="font-extrabold text-sm tracking-wide text-center"
-                style={{ color, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                style={{ color, fontFamily: 'var(--font-jakarta), sans-serif' }}
               >
                 {name}
               </span>

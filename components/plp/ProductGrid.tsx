@@ -17,7 +17,7 @@ function PLPProductCard({ product }: { product: ProductListItem }) {
   const addItem = useCartStore((s) => s.addItem)
   const finalPrice = product.price_range.minimum_price.final_price
   const regularPrice = product.price_range.minimum_price.regular_price
-  const hasDiscount = finalPrice.value < regularPrice.value
+  const hasDiscount = regularPrice && finalPrice.value < regularPrice.value
   const currency = finalPrice.currency === 'EUR' ? '€' : finalPrice.currency
 
   const handleAdd = () => {
@@ -31,7 +31,7 @@ function PLPProductCard({ product }: { product: ProductListItem }) {
         <WishlistButton sku={product.sku} />
       </div>
 
-      <Link href={`/product/${product.url_key}`} className="block">
+      <Link href={`/product/${product.sku}`} className="block">
         <div className="relative aspect-square bg-gray-50 border-b border-gray-100 overflow-hidden">
           {product.small_image?.url ? (
             <Image
@@ -50,8 +50,8 @@ function PLPProductCard({ product }: { product: ProductListItem }) {
       </Link>
 
       <div className="p-3 flex flex-col flex-1">
-        <Link href={`/product/${product.url_key}`}>
-          <h3 className="text-sm font-semibold text-gray-800 leading-snug mb-2 line-clamp-2 hover:text-orange-500 transition-colors" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
+        <Link href={`/product/${product.sku}`}>
+          <h3 className="text-sm font-semibold text-gray-800 leading-snug mb-2 line-clamp-2 hover:text-orange-500 transition-colors" style={{ fontFamily: 'var(--font-jakarta), sans-serif' }}>
             {product.name}
           </h3>
         </Link>
@@ -68,7 +68,7 @@ function PLPProductCard({ product }: { product: ProductListItem }) {
         <button
           onClick={handleAdd}
           className="w-full py-2 text-xs font-bold uppercase tracking-wide rounded flex items-center justify-center gap-1.5 transition-all duration-150 bg-gray-100 hover:bg-orange-500 hover:text-white"
-          style={{ color: '#1B2B6B', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+          style={{ color: '#1B2B6B', fontFamily: 'var(--font-jakarta), sans-serif' }}
         >
           <ShoppingCart size={13} />
           ADD TO CART
@@ -82,7 +82,7 @@ function PLPProductRow({ product }: { product: ProductListItem }) {
   const addItem = useCartStore((s) => s.addItem)
   const finalPrice = product.price_range.minimum_price.final_price
   const regularPrice = product.price_range.minimum_price.regular_price
-  const hasDiscount = finalPrice.value < regularPrice.value
+  const hasDiscount = regularPrice && finalPrice.value < regularPrice.value
   const currency = finalPrice.currency === 'EUR' ? '€' : finalPrice.currency
 
   const handleAdd = () => {
@@ -92,7 +92,7 @@ function PLPProductRow({ product }: { product: ProductListItem }) {
 
   return (
     <div className="bg-white border border-gray-200 rounded-lg flex gap-4 p-3 hover:shadow-md transition-shadow">
-      <Link href={`/product/${product.url_key}`} className="shrink-0">
+      <Link href={`/product/${product.sku}`} className="shrink-0">
         <div className="relative w-24 h-24 bg-gray-50 border border-gray-100 rounded overflow-hidden">
           {product.small_image?.url ? (
             <Image src={product.small_image.url} alt={product.name} fill className="object-contain p-2" sizes="96px" />
@@ -103,8 +103,8 @@ function PLPProductRow({ product }: { product: ProductListItem }) {
       </Link>
       <div className="flex-1 flex flex-col justify-between min-w-0">
         <div>
-          <Link href={`/product/${product.url_key}`}>
-            <h3 className="text-sm font-semibold text-gray-800 hover:text-orange-500 transition-colors line-clamp-2" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>{product.name}</h3>
+          <Link href={`/product/${product.sku}`}>
+            <h3 className="text-sm font-semibold text-gray-800 hover:text-orange-500 transition-colors line-clamp-2" style={{ fontFamily: 'var(--font-jakarta), sans-serif' }}>{product.name}</h3>
           </Link>
           <p className="text-xs text-gray-400 mt-0.5">SKU: {product.sku}</p>
         </div>

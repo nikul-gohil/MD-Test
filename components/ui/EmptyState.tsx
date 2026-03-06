@@ -62,14 +62,14 @@ export default function EmptyState({ type = 'generic', title, message, actionLab
       <div className="w-16 h-16 rounded-full flex items-center justify-center mb-4" style={{ backgroundColor: '#EBF3FF' }}>
         <Icon size={28} style={{ color: '#1B2B6B' }} />
       </div>
-      <h3 className="text-lg font-bold mb-2" style={{ color: '#1B2B6B', fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
+      <h3 className="text-lg font-bold mb-2" style={{ color: '#1B2B6B', fontFamily: 'var(--font-jakarta), sans-serif' }}>
         {displayTitle}
       </h3>
       {displayMessage && <p className="text-gray-500 text-sm mb-6 max-w-xs">{displayMessage}</p>}
       <Link
         href={displayActionHref}
         className="px-6 py-2.5 text-sm font-bold text-white rounded transition-opacity hover:opacity-90"
-        style={{ backgroundColor: '#F15A24', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+        style={{ backgroundColor: '#F15A24', fontFamily: 'var(--font-jakarta), sans-serif' }}
       >
         {displayActionLabel}
       </Link>

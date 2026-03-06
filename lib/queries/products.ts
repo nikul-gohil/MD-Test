@@ -37,8 +37,8 @@ export const GET_CATEGORY_PRODUCTS_QUERY = `
 `
 
 export const GET_PRODUCT_DETAIL_QUERY = `
-  query GetProductDetail($urlKey: String!) {
-    products(filter: { url_key: { eq: $urlKey } }) {
+  query GetProductDetail($sku: String!) {
+    products(filter: { sku: { eq: $sku } }) {
       items {
         id sku name url_key
         description { html }
@@ -52,7 +52,7 @@ export const GET_PRODUCT_DETAIL_QUERY = `
         media_gallery { url label position }
         categories { id name url_path }
         related_products {
-          id name url_key
+          id sku name url_key
           small_image { url label }
           price_range { minimum_price { final_price { value currency } } }
         }
@@ -71,9 +71,14 @@ export const GET_SEARCH_PRODUCTS_QUERY = `
       }
       page_info { current_page page_size total_pages }
       items {
-        id name url_key
+        id sku name url_key
         small_image { url label }
-        price_range { minimum_price { final_price { value currency } } }
+        price_range {
+          minimum_price {
+            regular_price { value currency }
+            final_price { value currency }
+          }
+        }
       }
     }
   }

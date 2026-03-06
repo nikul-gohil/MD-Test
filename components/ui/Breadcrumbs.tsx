@@ -37,14 +37,14 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
                 <Link
                   href={item.href}
                   className="text-gray-500 hover:text-orange-500 transition-colors"
-                  style={{ fontFamily: 'DM Sans, sans-serif' }}
+                  style={{ fontFamily: 'var(--font-dm), sans-serif' }}
                 >
                   {item.label}
                 </Link>
               ) : (
                 <span
                   className="text-gray-800 font-medium"
-                  style={{ fontFamily: 'DM Sans, sans-serif' }}
+                  style={{ fontFamily: 'var(--font-dm), sans-serif' }}
                 >
                   {item.label}
                 </span>

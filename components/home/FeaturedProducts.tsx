@@ -1,13 +1,9 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation } from 'swiper/modules'
-import type { Swiper as SwiperType } from 'swiper'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import ProductCard from '@/components/ui/ProductCard'
 import type { FeaturedProduct } from '@/lib/types'
-import 'swiper/css'
 
 interface FeaturedProductsProps {
   products?: FeaturedProduct[]
@@ -26,16 +22,17 @@ const STATIC_PRODUCTS: FeaturedProduct[] = [
 
 export default function FeaturedProducts({ products }: FeaturedProductsProps) {
   const [activeTab, setActiveTab] = useState('All')
-  const swiperRef = useRef<SwiperType | null>(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
 
   const items = products && products.length > 0 ? products : STATIC_PRODUCTS
-
-  // Derive unique tab names from products (preserving order of first appearance)
   const tabNames = Array.from(new Set(items.map((p) => p.tabCategory)))
   const tabs = ['All', ...tabNames]
 
-  const filtered =
-    activeTab === 'All' ? items : items.filter((p) => p.tabCategory === activeTab)
+  const filtered = activeTab === 'All' ? items : items.filter((p) => p.tabCategory === activeTab)
+
+  const scroll = (dir: 'left' | 'right') => {
+    scrollRef.current?.scrollBy({ left: dir === 'left' ? -320 : 320, behavior: 'smooth' })
+  }
 
   return (
     <section className="py-12 bg-white">
@@ -44,25 +41,25 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
           <h2
             className="text-2xl font-extrabold"
-            style={{ color: '#1B2B6B', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+            style={{ color: '#1B2B6B', fontFamily: 'var(--font-jakarta), sans-serif' }}
           >
             Featured Products
           </h2>
           <div className="flex items-center gap-1">
             {/* Tabs */}
-            <div className="flex items-center gap-1 mr-4">
+            <div className="flex items-center gap-1 mr-4 overflow-x-auto scrollbar-hide">
               {tabs.map((tab) => (
                 <button
                   key={tab}
                   onClick={() => {
                     setActiveTab(tab)
-                    swiperRef.current?.slideTo(0)
+                    scrollRef.current?.scrollTo({ left: 0, behavior: 'smooth' })
                   }}
-                  className="px-3 py-1.5 text-xs font-semibold transition-all duration-150 border-b-2"
+                  className="px-3 py-1.5 text-xs font-semibold transition-all duration-150 border-b-2 whitespace-nowrap"
                   style={{
                     color: activeTab === tab ? '#F15A24' : '#6B7280',
                     borderBottomColor: activeTab === tab ? '#F15A24' : 'transparent',
-                    fontFamily: 'Plus Jakarta Sans, sans-serif',
+                    fontFamily: 'var(--font-jakarta), sans-serif',
                   }}
                 >
                   {tab}
@@ -71,36 +68,29 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
             </div>
             {/* Arrows */}
             <button
-              onClick={() => swiperRef.current?.slidePrev()}
-              className="w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center text-gray-500 hover:border-orange-500 hover:text-orange-500 transition-colors"
+              onClick={() => scroll('left')}
+              aria-label="Scroll left"
+              className="w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center text-gray-500 hover:border-orange-500 hover:text-orange-500 transition-colors shrink-0"
             >
               <ChevronLeft size={16} />
             </button>
             <button
-              onClick={() => swiperRef.current?.slideNext()}
-              className="w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center text-gray-500 hover:border-orange-500 hover:text-orange-500 transition-colors"
+              onClick={() => scroll('right')}
+              aria-label="Scroll right"
+              className="w-8 h-8 rounded-full border-2 border-gray-300 flex items-center justify-center text-gray-500 hover:border-orange-500 hover:text-orange-500 transition-colors shrink-0"
             >
               <ChevronRight size={16} />
             </button>
           </div>
         </div>
 
-        {/* Swiper */}
-        <Swiper
-          modules={[Navigation]}
-          spaceBetween={16}
-          slidesPerView={1}
-          breakpoints={{
-            480: { slidesPerView: 2 },
-            768: { slidesPerView: 3 },
-            1024: { slidesPerView: 4 },
-            1280: { slidesPerView: 5 },
-          }}
-          onSwiper={(swiper) => { swiperRef.current = swiper }}
-          key={activeTab}
+        {/* Scroll container */}
+        <div
+          ref={scrollRef}
+          className="flex gap-4 overflow-x-auto scrollbar-hide scroll-smooth pb-2"
         >
           {filtered.map((product) => (
-            <SwiperSlide key={product.sku}>
+            <div key={product.sku} className="shrink-0 w-52 sm:w-56">
               <ProductCard
                 sku={product.sku}
                 name={product.name}
@@ -109,9 +99,9 @@ export default function FeaturedProducts({ products }: FeaturedProductsProps) {
                 image={product.image}
                 currency={product.currency}
               />
-            </SwiperSlide>
+            </div>
           ))}
-        </Swiper>
+        </div>
       </div>
     </section>
   )

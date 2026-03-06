@@ -33,7 +33,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1">
           {product.categories?.[0]?.name ?? ''}
         </p>
-        <h1 className="text-2xl font-extrabold leading-snug" style={{ color: '#1B2B6B', fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
+        <h1 className="text-2xl font-extrabold leading-snug" style={{ color: '#1B2B6B', fontFamily: 'var(--font-jakarta), sans-serif' }}>
           {product.name}
         </h1>
         <p className="text-xs text-gray-400 mt-1">SKU: <span className="font-medium text-gray-600">{product.sku}</span></p>
@@ -43,7 +43,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
       <div className="border-t border-b border-gray-100 py-4">
         <p className="text-xs text-gray-400 mb-1">As Low As</p>
         <div className="flex items-baseline gap-3">
-          <span className="text-3xl font-extrabold" style={{ color: hasDiscount ? '#F15A24' : '#1B2B6B', fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
+          <span className="text-3xl font-extrabold" style={{ color: hasDiscount ? '#F15A24' : '#1B2B6B', fontFamily: 'var(--font-jakarta), sans-serif' }}>
             {currency}{finalPrice.value.toFixed(2)}
           </span>
           <span className="text-sm text-gray-400">Ex. Vat</span>
@@ -89,7 +89,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
           <button
             onClick={handleAddToCart}
             className="flex-1 py-3 text-sm font-bold uppercase tracking-wide rounded-lg flex items-center justify-center gap-2 text-white transition-opacity hover:opacity-90"
-            style={{ backgroundColor: '#F15A24', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+            style={{ backgroundColor: '#F15A24', fontFamily: 'var(--font-jakarta), sans-serif' }}
           >
             <ShoppingCart size={16} />
             Add to Cart

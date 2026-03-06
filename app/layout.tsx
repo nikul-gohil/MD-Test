@@ -5,6 +5,7 @@ import { client } from '@/lib/apolloClient'
 import { GET_NAV_CATEGORIES } from '@/lib/queries/categories'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import SuppressHydrationWarnings from '@/components/util/SuppressHydrationWarnings'
 import type { NavCategory, NavSubCategory, NavLeafCategory } from '@/lib/types'
 import './globals.css'
 
@@ -12,12 +13,18 @@ const plusJakarta = Plus_Jakarta_Sans({
   subsets: ['latin'],
   variable: '--font-jakarta',
   weight: ['400', '500', '600', '700', '800'],
+  display: 'swap',
+  preload: true,
+  adjustFontFallback: true,
 })
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
   variable: '--font-dm',
-  weight: ['300', '400', '500', '600'],
+  weight: ['400', '500', '600'],
+  display: 'swap',
+  preload: true,
+  adjustFontFallback: true,
 })
 
 export const metadata: Metadata = {
@@ -72,7 +79,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://dev.medguard.ie" />
+        <link rel="dns-prefetch" href="https://dev.medguard.ie" />
+      </head>
       <body className={`${plusJakarta.variable} ${dmSans.variable}`} suppressHydrationWarning>
+        <SuppressHydrationWarnings />
         <Toaster position="top-right" />
         <Header navCategories={navCategories} />
         {children}

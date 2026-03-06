@@ -25,7 +25,7 @@ function AccordionSection({ title, children, defaultOpen = true }: { title: stri
       <button
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between py-3 text-sm font-semibold text-gray-800 hover:text-orange-500 transition-colors"
-        style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+        style={{ fontFamily: 'var(--font-jakarta), sans-serif' }}
       >
         {title}
         <ChevronDown size={15} style={{ transform: open ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.15s' }} />
@@ -60,7 +60,7 @@ export default function FilterSidebar({ aggregations, activeFilters, onFilterCha
   return (
     <aside className="w-full">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-base font-extrabold" style={{ color: '#1B2B6B', fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
+        <h2 className="text-base font-extrabold" style={{ color: '#1B2B6B', fontFamily: 'var(--font-jakarta), sans-serif' }}>
           Filter By
         </h2>
         <button

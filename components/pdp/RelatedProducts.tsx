@@ -14,7 +14,7 @@ export default function RelatedProducts({ products }: RelatedProductsProps) {
     <div>
       <h2
         className="text-xl font-extrabold mb-5"
-        style={{ color: '#1B2B6B', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+        style={{ color: '#1B2B6B', fontFamily: 'var(--font-jakarta), sans-serif' }}
       >
         Related Products
       </h2>
@@ -27,7 +27,7 @@ export default function RelatedProducts({ products }: RelatedProductsProps) {
           return (
             <Link
               key={p.id}
-              href={`/product/${p.url_key}`}
+              href={`/product/${p.sku}`}
               className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition-shadow group"
             >
               {/* Image */}
@@ -51,7 +51,7 @@ export default function RelatedProducts({ products }: RelatedProductsProps) {
               <div className="p-3">
                 <p
                   className="text-xs font-semibold text-gray-800 line-clamp-2 leading-snug mb-2"
-                  style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                  style={{ fontFamily: 'var(--font-jakarta), sans-serif' }}
                 >
                   {p.name}
                 </p>

@@ -49,7 +49,7 @@ export default function PromoBanners() {
                 <div className="text-center opacity-40">
                   <div
                     className="text-4xl font-extrabold"
-                    style={{ color: textColor, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                    style={{ color: textColor, fontFamily: 'var(--font-jakarta), sans-serif' }}
                   >
                     {brand}
                   </div>
@@ -69,7 +69,7 @@ export default function PromoBanners() {
                 </p>
                 <h3
                   className="font-bold text-base leading-snug mb-1"
-                  style={{ color: textColor, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                  style={{ color: textColor, fontFamily: 'var(--font-jakarta), sans-serif' }}
                 >
                   {product}
                 </h3>
@@ -77,7 +77,7 @@ export default function PromoBanners() {
                 <Link
                   href="#"
                   className="inline-flex items-center gap-1 text-sm font-bold transition-opacity hover:opacity-80"
-                  style={{ color: '#F15A24', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                  style={{ color: '#F15A24', fontFamily: 'var(--font-jakarta), sans-serif' }}
                 >
                   EXPLORE MORE ›
                 </Link>

@@ -1,5 +1,3 @@
-'use client'
-
 import Link from 'next/link'
 
 export default function HeroBanner() {
@@ -12,7 +10,7 @@ export default function HeroBanner() {
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: `url('/images/hero.jpg'), linear-gradient(135deg, #1B2B6B 0%, #0F1A45 50%, #1a3a5c 100%)`,
+          backgroundImage: `linear-gradient(135deg, #1B2B6B 0%, #0F1A45 50%, #1a3a5c 100%)`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
@@ -50,7 +48,7 @@ export default function HeroBanner() {
             </span>
             <h1
               className="text-3xl md:text-4xl font-extrabold text-white leading-tight"
-              style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+              style={{ fontFamily: 'var(--font-jakarta), sans-serif' }}
             >
               Reliable Medical &amp; Healthcare Supplies — Ireland Wide
             </h1>
@@ -65,14 +63,14 @@ export default function HeroBanner() {
               <Link
                 href="#"
                 className="border-2 border-white text-white text-sm font-semibold px-5 py-2.5 rounded hover:bg-white hover:text-navy transition-all duration-200"
-                style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                style={{ fontFamily: 'var(--font-jakarta), sans-serif' }}
               >
                 TALK TO A SPECIALIST ›
               </Link>
               <Link
                 href="#"
                 className="text-white text-sm font-semibold px-5 py-2.5 rounded hover:opacity-90 transition-opacity"
-                style={{ backgroundColor: '#F15A24', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                style={{ backgroundColor: '#F15A24', fontFamily: 'var(--font-jakarta), sans-serif' }}
               >
                 SHOP BY CATEGORY ›
               </Link>

@@ -23,7 +23,7 @@ export default function TrustedBrands() {
             >
               <span
                 className="font-bold text-sm tracking-wide text-gray-500"
-                style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                style={{ fontFamily: 'var(--font-jakarta), sans-serif' }}
               >
                 {brand}
               </span>

@@ -25,7 +25,7 @@ export default function ProductTabs({ product }: ProductTabsProps) {
             style={{
               color: activeTab === tab ? '#F15A24' : '#6B7280',
               borderBottomColor: activeTab === tab ? '#F15A24' : 'transparent',
-              fontFamily: 'Plus Jakarta Sans, sans-serif',
+              fontFamily: 'var(--font-jakarta), sans-serif',
             }}
           >
             {tab}
@@ -52,7 +52,7 @@ export default function ProductTabs({ product }: ProductTabsProps) {
                   ['Category', product.categories?.[0]?.name ?? '—'],
                 ].map(([label, value]) => (
                   <tr key={label} className="border-b border-gray-100 last:border-none">
-                    <td className="py-2.5 pr-4 font-medium text-gray-700 w-40" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>{label}</td>
+                    <td className="py-2.5 pr-4 font-medium text-gray-700 w-40" style={{ fontFamily: 'var(--font-jakarta), sans-serif' }}>{label}</td>
                     <td className="py-2.5 text-gray-600">{value}</td>
                   </tr>
                 ))}

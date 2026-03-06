@@ -114,7 +114,7 @@ export default function Footer() {
           <div>
             <h3
               className="font-bold text-sm uppercase tracking-wider mb-4 pb-2 border-b border-white/10"
-              style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+              style={{ fontFamily: 'var(--font-jakarta), sans-serif' }}
             >
               Quick Links
             </h3>
@@ -136,7 +136,7 @@ export default function Footer() {
           <div>
             <h3
               className="font-bold text-sm uppercase tracking-wider mb-4 pb-2 border-b border-white/10"
-              style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+              style={{ fontFamily: 'var(--font-jakarta), sans-serif' }}
             >
               Information
             </h3>
@@ -158,7 +158,7 @@ export default function Footer() {
           <div>
             <h3
               className="font-bold text-sm uppercase tracking-wider mb-4 pb-2 border-b border-white/10"
-              style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+              style={{ fontFamily: 'var(--font-jakarta), sans-serif' }}
             >
               Contact Us
             </h3>

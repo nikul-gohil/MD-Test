@@ -12,14 +12,12 @@ export const CREATE_CUSTOMER = `
     $lastname: String!
     $email: String!
     $password: String!
-    $is_subscribed: Boolean
   ) {
     createCustomer(input: {
       firstname: $firstname
       lastname: $lastname
       email: $email
       password: $password
-      is_subscribed: $is_subscribed
     }) {
       customer { firstname lastname email }
     }
@@ -30,26 +28,27 @@ export const GET_CUSTOMER = `
   query GetCustomer {
     customer {
       firstname lastname email
-      addresses {
-        id firstname lastname
-        street city region { region_code }
-        postcode country_code telephone
-        default_shipping default_billing
-      }
     }
   }
 `
 
 export const GET_CUSTOMER_ORDERS = `
-  query GetCustomerOrders($pageSize: Int, $currentPage: Int) {
+  query GetCustomerOrders {
     customer {
-      orders(pageSize: $pageSize, currentPage: $currentPage) {
-        total_count
+      orders(pageSize: 20) {
         items {
-          id number status order_date
-          shipping_address { firstname lastname }
+          number status order_date
           total { grand_total { value currency } }
-          items { product_name product_sku quantity_ordered product_sale_price { value currency } }
+          shipping_address {
+            firstname lastname
+            street city region { region_code }
+            postcode country_code
+          }
+          items {
+            product_name
+            quantity_ordered
+            product_sale_price { value currency }
+          }
         }
       }
     }

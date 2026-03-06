@@ -42,7 +42,7 @@ export default function SortToolbar({ breadcrumbs, totalCount, currentPage, page
             value={sortValue}
             onChange={(e) => onSortChange(e.target.value as SortOption)}
             className="border border-gray-200 rounded px-3 py-1.5 text-sm outline-none focus:border-orange-400 bg-white"
-            style={{ fontFamily: 'DM Sans, sans-serif' }}
+            style={{ fontFamily: 'var(--font-dm), sans-serif' }}
           >
             {SORT_OPTIONS.map((o) => (
               <option key={o.value} value={o.value}>{o.label}</option>

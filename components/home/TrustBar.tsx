@@ -36,7 +36,7 @@ export default function TrustBar() {
               <Icon size={22} className="text-white" />
             </div>
             <div>
-              <p className="text-white font-bold text-sm" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
+              <p className="text-white font-bold text-sm" style={{ fontFamily: 'var(--font-jakarta), sans-serif' }}>
                 {title}
               </p>
               <p className="text-white/50 text-xs leading-tight">{subtitle}</p>

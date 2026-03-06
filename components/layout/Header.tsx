@@ -20,6 +20,7 @@ import { useCartStore } from '@/store/cartStore'
 import { magentoFetch } from '@/lib/magentoFetch'
 import { GET_SEARCH_PRODUCTS_QUERY } from '@/lib/queries/products'
 import type { NavCategory, ProductListItem } from '@/lib/types'
+import CartDrawer from '@/components/cart/CartDrawer'
 
 interface HeaderProps {
   navCategories?: NavCategory[]
@@ -49,11 +50,13 @@ export default function Header({ navCategories = [] }: HeaderProps) {
   const [suggestions, setSuggestions] = useState<ProductListItem[]>([])
   const [searchLoading, setSearchLoading] = useState(false)
   const [showSuggestions, setShowSuggestions] = useState(false)
+  const [cartDrawerOpen, setCartDrawerOpen] = useState(false)
   const [showClearanceBadge, setShowClearanceBadge] = useState(true)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null)
   const [mobileSubExpanded, setMobileSubExpanded] = useState<string | null>(null)
+  const [mounted, setMounted] = useState(false)
 
   const searchRef = useRef<HTMLDivElement>(null)
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -108,6 +111,8 @@ export default function Header({ navCategories = [] }: HeaderProps) {
     return () => { if (debounceRef.current) clearTimeout(debounceRef.current) }
   }, [searchQuery, fetchSuggestions])
 
+  useEffect(() => { setMounted(true) }, [])
+
   // Close suggestions on outside click
   useEffect(() => {
     function handleClick(e: MouseEvent) {
@@ -148,6 +153,7 @@ export default function Header({ navCategories = [] }: HeaderProps) {
   )
 
   return (
+    <>
     <header className="w-full sticky top-0 z-50 shadow-sm">
 
       {/* ── Top Bar ──────────────────────────────────────────────────── */}
@@ -181,7 +187,7 @@ export default function Header({ navCategories = [] }: HeaderProps) {
                 />
               ))}
             </div>
-            <span className="font-extrabold text-xl tracking-widest" style={{ color: '#1B2B6B', fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
+            <span className="font-extrabold text-xl tracking-widest" style={{ color: '#1B2B6B', fontFamily: 'var(--font-jakarta), sans-serif' }}>
               MEDGUARD
             </span>
           </Link>
@@ -252,10 +258,13 @@ export default function Header({ navCategories = [] }: HeaderProps) {
               <Heart size={20} />
               <span className="text-xs hidden sm:block">Wishlist</span>
             </Link>
-            <Link href="/cart" className="flex items-center gap-2 text-gray-700 hover:text-navy transition-colors relative">
+            <button
+              onClick={() => setCartDrawerOpen(true)}
+              className="flex items-center gap-2 text-gray-700 hover:text-navy transition-colors relative"
+            >
               <div className="relative">
                 <ShoppingCart size={22} />
-                {itemCount > 0 && (
+                {mounted && itemCount > 0 && (
                   <span style={{ backgroundColor: '#F15A24' }} className="absolute -top-2 -right-2 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center font-bold">
                     {itemCount}
                   </span>
@@ -263,9 +272,9 @@ export default function Header({ navCategories = [] }: HeaderProps) {
               </div>
               <div className="hidden sm:block">
                 <p className="text-xs text-gray-400 leading-none">Cart</p>
-                <p className="font-semibold text-sm leading-tight" style={{ color: '#1B2B6B' }}>€{total().toFixed(2)}</p>
+                <p className="font-semibold text-sm leading-tight" style={{ color: '#1B2B6B' }}>€{mounted ? total().toFixed(2) : '0.00'}</p>
               </div>
-            </Link>
+            </button>
             <button className="md:hidden text-gray-600" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
               <Menu size={22} />
             </button>
@@ -295,7 +304,7 @@ export default function Header({ navCategories = [] }: HeaderProps) {
                   style={{
                     color: activeMenu === cat.id ? '#F15A24' : '#374151',
                     borderBottomColor: activeMenu === cat.id ? '#F15A24' : 'transparent',
-                    fontFamily: 'DM Sans, sans-serif',
+                    fontFamily: 'var(--font-dm), sans-serif',
                   }}
                 >
                   {cat.name}
@@ -422,7 +431,7 @@ export default function Header({ navCategories = [] }: HeaderProps) {
                     <Link
                       href={`/category/${activeCat.url_path}`}
                       className="text-sm font-bold hover:text-orange-500 transition-colors flex items-center gap-1"
-                      style={{ color: '#1B2B6B', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                      style={{ color: '#1B2B6B', fontFamily: 'var(--font-jakarta), sans-serif' }}
                     >
                       View All {activeCat.name}
                       <ChevronRight size={14} />
@@ -443,7 +452,7 @@ export default function Header({ navCategories = [] }: HeaderProps) {
                       <Link
                         href={`/category/${sub.url_path}`}
                         className="block text-sm font-semibold text-gray-800 hover:text-orange-500 mb-1.5 leading-snug transition-colors"
-                        style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                        style={{ fontFamily: 'var(--font-jakarta), sans-serif' }}
                       >
                         {sub.name}
                       </Link>
@@ -454,7 +463,7 @@ export default function Header({ navCategories = [] }: HeaderProps) {
                               <Link
                                 href={`/category/${leaf.url_path}`}
                                 className="flex items-center gap-1 text-xs text-gray-500 hover:text-orange-500 transition-colors"
-                                style={{ fontFamily: 'DM Sans, sans-serif' }}
+                                style={{ fontFamily: 'var(--font-dm), sans-serif' }}
                               >
                                 <ChevronRight size={10} className="shrink-0 text-gray-300" />
                                 {leaf.name}
@@ -483,5 +492,8 @@ export default function Header({ navCategories = [] }: HeaderProps) {
         )}
       </div>
     </header>
+
+    <CartDrawer open={cartDrawerOpen} onClose={() => setCartDrawerOpen(false)} />
+    </>
   )
 }
