@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { magentoFetch } from '@/lib/magentoFetch'
@@ -60,8 +59,19 @@ export default async function ProductPage({ params }: PageProps) {
     { label: product.name, href: undefined },
   ]
 
+  // Preload the main product image — placed in <head> by Next.js hoisting
+  const firstImageUrl = product.media_gallery?.find((m) => m.url)?.url
+  const preloadHref = firstImageUrl
+    ? `/_next/image?url=${encodeURIComponent(firstImageUrl)}&w=828&q=75`
+    : null
+
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#F5F7FA' }}>
+      {/* Preload LCP image before any JS executes */}
+      {preloadHref && (
+        // eslint-disable-next-line @next/next/no-head-element
+        <link rel="preload" as="image" href={preloadHref} fetchPriority="high" />
+      )}
       <ProductSchema product={product} url={`${siteUrl}/product/${slug}`} />
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Breadcrumbs */}
@@ -69,14 +79,14 @@ export default async function ProductPage({ params }: PageProps) {
           <Breadcrumbs items={breadcrumbs} />
         </div>
 
-        {/* Main product section */}
+        {/* Main product section — no Suspense: ProductGallery is a client component
+            that renders synchronously on the server; wrapping in Suspense delays
+            the priority image preload into a stream chunk instead of the initial <head> */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
-          <Suspense fallback={<div className="aspect-square bg-white rounded-xl animate-pulse" />}>
-            <ProductGallery
-              images={product.media_gallery ?? []}
-              productName={product.name}
-            />
-          </Suspense>
+          <ProductGallery
+            images={product.media_gallery ?? []}
+            productName={product.name}
+          />
 
           <ProductInfo product={product} />
         </div>

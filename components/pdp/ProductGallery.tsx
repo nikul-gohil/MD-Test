@@ -17,16 +17,17 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Main image */}
+      {/* Main image — priority + eager so it is the LCP element immediately */}
       <div className="relative aspect-square bg-white border border-gray-200 rounded-xl overflow-hidden">
         {activeImage?.url ? (
           <Image
             src={activeImage.url}
             alt={activeImage.label || productName}
             fill
+            priority
+            fetchPriority="high"
             className="object-contain p-6 transition-transform duration-300 hover:scale-105"
             sizes="(max-width: 768px) 100vw, 50vw"
-            priority
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">
