@@ -30,6 +30,10 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: 'MedGuard — Professional Healthcare Supplies',
   description: 'Ireland\'s leading supplier of medical and healthcare supplies for hospitals, clinics and care homes.',
+  robots: {
+    index: false,
+    follow: false,
+  },
 }
 
 const SKIP_NAV = ['test', 'mg brand']
